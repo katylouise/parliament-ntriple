@@ -2,7 +2,7 @@ module Parliament
   module Builder
     class NTripleResponseBuilder < Parliament::Builder::BaseResponseBuilder
       def build
-        objects = Grom::Reader.new(@response.body).objects
+        objects = ::Grom::Reader.new(@response.body).objects
         objects.map { |object| assign_decorator(object) }
 
         Parliament::Response.new(objects)
@@ -13,7 +13,7 @@ module Parliament
       def assign_decorator(object)
         return object unless object.respond_to?(:type)
 
-        object_type = Grom::Helper.get_id(object.type)
+        object_type = ::Grom::Helper.get_id(object.type)
 
         return object unless Parliament::Decorator.constants.include?(object_type.to_sym)
 
