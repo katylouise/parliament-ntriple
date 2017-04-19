@@ -8,6 +8,8 @@ module Parliament
     #
     # @since 0.1.0
     #
+    # @see Parliament::Response::BaseReponse#initialize
+    #
     # @attr_reader [Array<Grom::Node>] nodes Graph nodes.
     class NTripleResponse < Parliament::Response::BaseResponse
       include Enumerable

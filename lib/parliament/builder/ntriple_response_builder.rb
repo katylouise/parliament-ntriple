@@ -4,6 +4,10 @@ module Parliament
     class NTripleResponseBuilder < Parliament::Builder::BaseResponseBuilder
       # Creates an instance of NTripleResponseBuilder.
       #
+      # @since 0.1.0
+      #
+      # @see Parliament::BaseResponse#initialize
+      #
       # @param [HTTPResponse] response an HTTP response containing n-triple data.
       # @param [Parliament::Grom::Decorator] decorators the decorator modules to provide alias methods to the resulting objects.
       def initialize(response:, decorators: nil)
