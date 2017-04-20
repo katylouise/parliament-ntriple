@@ -23,7 +23,7 @@ module Parliament
       # @return [Parliament::Response::NTripleResponse] a Parliament::Response::NTripleResponse containing decorated Grom::Node objects.
       def build
         objects = ::Grom::Reader.new(@response.body).objects
-        objects.map { |object| @decorators.assign_decorator(object) } unless @decorators.nil?
+        objects.map! { |object| @decorators.decorate(object) } unless @decorators.nil?
 
         Parliament::Response::NTripleResponse.new(objects)
       end
