@@ -79,7 +79,7 @@ module Parliament
 
         unless types.empty?
           @nodes.each do |node|
-            type_index = node.blank? ? types.index(Grom::Node::BLANK) : types.index(node.type)
+            type_index = node.blank? ? types.index(::Grom::Node::BLANK) : types.index(node.type)
 
             filtered_objects[type_index] << node unless type_index.nil?
           end
@@ -99,7 +99,7 @@ module Parliament
       # @param [Array<Symbol>] parameters Attributes to sort on - left to right.
       # @return [Array<Grom::Node>] A sorted array of nodes.
       def sort_by(*parameters)
-        Parliament::Utils.sort_by(
+        Parliament::NTriple::Utils.sort_by(
           {
             list:       @nodes,
             parameters: parameters
@@ -116,7 +116,7 @@ module Parliament
       # @param [Array<Symbol>] parameters Attributes to sort on - left to right.
       # @return [Array<Grom::Node>] A sorted array of nodes.
       def reverse_sort_by(*parameters)
-        Parliament::Utils.reverse_sort_by(
+        Parliament::NTriple::Utils.reverse_sort_by(
           {
             list:       @nodes,
             parameters: parameters

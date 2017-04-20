@@ -2,6 +2,7 @@ require 'parliament'
 require 'grom'
 
 require 'parliament/ntriple/version'
+require 'parliament/ntriple/utils'
 require 'parliament/response/ntriple_response'
 require 'parliament/builder/ntriple_response_builder'
 
