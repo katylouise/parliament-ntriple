@@ -1,15 +1,17 @@
 module Parliament
   module Builder
-    # API response builder, allowing the user to build a Parliament::Response::NTripleResponse from n-triple data.
+    # N-Triple response builder, allowing the user to build a Parliament::Response::NTripleResponse from n-triple data.
+    #
+    # @since 0.1.0
     class NTripleResponseBuilder < Parliament::Builder::BaseResponseBuilder
-      # Creates an instance of NTripleResponseBuilder.
-      #
-      # @since 0.1.0
+      # Creates an instance of Parliament::Builder::NTripleResponseBuilder.
       #
       # @see Parliament::BaseResponse#initialize
       #
       # @param [HTTPResponse] response an HTTP response containing n-triple data.
-      # @param [Parliament::Grom::Decorator] decorators the decorator modules to provide alias methods to the resulting objects.
+      # @param [Module] decorators the decorator module to provide alias methods to the resulting objects.
+      # @example Using the Grom Decorators module
+      #   Parliament::Builder::NTripleResponseBuilder.new(response: <#HTTPResponse>, decorators: Parliament::Grom::Decorator)
       def initialize(response:, decorators: nil)
         @decorators = decorators
 

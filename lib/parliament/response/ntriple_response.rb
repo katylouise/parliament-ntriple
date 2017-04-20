@@ -2,7 +2,7 @@ require 'forwardable'
 
 module Parliament
   module Response
-    # API response object that wraps an Array of Grom::Node objects with common helper methods.
+    # N-Triple response object that wraps an Array of Grom::Node objects with common helper methods.
     #
     # Delegates a number of common methods to the array of Grom::Nodes including, but not limited to, :size, :each, :map, :count etc.
     #

@@ -1,11 +1,11 @@
 # Parliament::NTriple
 
-[parliament-ntriple](http://rubygems.org/gems/parliament-ntriple) is a gem created by the [Parliamentary Digital Service](https://www.parliament.uk/mps-lords-and-offices/offices/bicameral/parliamentary-digital-service/) to allow processing of n-triple data from parliamentary APIs.
+[parliament-ntriple](http://rubygems.org/gems/parliament-ntriple) is a gem created by the [Parliamentary Digital Service](https://www.parliament.uk/mps-lords-and-offices/offices/bicameral/parliamentary-digital-service/) to allow processing of n-triple data from parliamentary APIs.  This gem is effectively an extension of our [parliament-ruby](http://rubygems.org/gems/parliament-ruby) gem.
 
 > **NOTE:** This gem is in active development and is likely to change at short notice. It is not recommended that you use this in any production environment.
 
 ## Requirements
-[parliament-grom-decorators](http://github.com/ukparliament/parliament-grom-decorators) requires the following:
+[parliament-ntriple](http://github.com/ukparliament/parliament-ntriple) requires the following:
 * [Ruby](https://www.ruby-lang.org/en/)
 * [Bundler](http://http://bundler.io/)
 
