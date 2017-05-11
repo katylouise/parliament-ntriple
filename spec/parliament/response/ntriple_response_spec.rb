@@ -161,4 +161,23 @@ describe Parliament::Response::NTripleResponse, vcr: true do
       expect(sorted_response[1].incumbencyStartDate).to eq('2010-05-06')
     end
   end
+
+  describe '#multi_direction_sort' do
+    before(:each) do
+      @response = Parliament::Request::UrlRequest.new(base_url: 'http://localhost:3030',
+                                                      builder: Parliament::Builder::NTripleResponseBuilder,
+                                                      decorators: Parliament::Grom::Decorator).houses('mG2ur5TF').parties.current.get
+    end
+
+    it 'returns a response sorted by member_count (desc) and name (asc)' do
+      filtered_response = @response.filter('http://id.ukpds.org/schema/Party')
+      sorted_response = filtered_response.multi_direction_sort({ member_count: :desc, name: :asc })
+
+      expect(sorted_response.first.partyName).to eq('Conservative')
+      expect(sorted_response[10].name).to eq('Green Party')
+      expect(sorted_response[11].name).to eq('Independent Social Democrat')
+      expect(sorted_response[12].name).to eq('Independent Ulster Unionist')
+      expect(sorted_response[13].name).to eq('Plaid Cymru')
+    end
+  end
 end

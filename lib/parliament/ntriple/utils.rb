@@ -49,6 +49,7 @@ module Parliament
         args[:prepend_rejected] ? rejected.concat(list) : list.concat(rejected)
       end
 
+
       # Sort an Array of Objects in descending order. Largely, this implementation runs Parliament::NTriple::Utils.sort_by and
       # calls reverse! on the result.
       #
@@ -92,6 +93,27 @@ module Parliament
       # @return [Hash] default arguments used in sorting methods.
       def self.sort_defaults
         { prepend_rejected: true }
+      end
+
+      def self.multi_direction_sort(args)
+        directions_hash = { asc: 1, desc: -1 }
+        rejected = []
+        args = sort_defaults.merge(args)
+
+        list = args[:list].dup
+        sort_directions = args[:parameters]
+
+        list, rejected = prune_list(list, rejected, sort_directions.keys)
+        list.sort! do |obj1, obj2|
+          sort_values = sort_directions.map do |method_name, direction|
+            directions_hash[direction] * (obj1.send(method_name) <=> obj2.send(method_name))
+          end
+
+          sort_values.find{ |value| value != 0 } || 0
+        end
+
+        # Any rejected (nil) values will be added to the start of the result unless specified otherwise
+        args[:prepend_rejected] ? rejected.concat(list) : list.concat(rejected)
       end
 
       # @!method self.prune_list(list, rejected, parameters)

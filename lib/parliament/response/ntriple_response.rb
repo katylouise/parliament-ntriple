@@ -107,6 +107,15 @@ module Parliament
         )
       end
 
+      def multi_direction_sort(parameters)
+        Parliament::NTriple::Utils.multi_direction_sort(
+            {
+                list:       @nodes,
+                parameters: parameters
+            }
+        )
+      end
+
       # Sort the Parliament::Response nodes in descending order by a set of attributes on each node.
       #
       # @see Parliament::Utils.reverse_sort_by

@@ -184,4 +184,24 @@ describe Parliament::NTriple::Utils, vcr: true do
       expect(sorted_incumbencies[1].end_date).to eq(DateTime.new(2015, 3, 30))
     end
   end
+
+  describe '#multi_direction_sort' do
+    it 'returns a response sorted by member_count (desc) and name (asc)' do
+      response = Parliament::Request::UrlRequest.new(base_url: 'http://localhost:3030',
+                                                     builder: Parliament::Builder::NTripleResponseBuilder,
+                                                     decorators: Parliament::Grom::Decorator).houses('mG2ur5TF').parties.current.get
+      filtered_response = response.filter('http://id.ukpds.org/schema/Party')
+
+      sorted_parties = Parliament::NTriple::Utils.multi_direction_sort({
+                                                                    list: filtered_response.nodes,
+                                                                    parameters: { member_count: :desc, name: :asc },
+                                                                       })
+
+      expect(sorted_parties.first.name).to eq('Conservative')
+      expect(sorted_parties[10].name).to eq('Green Party')
+      expect(sorted_parties[11].name).to eq('Independent Social Democrat')
+      expect(sorted_parties[12].name).to eq('Independent Ulster Unionist')
+      expect(sorted_parties[13].name).to eq('Plaid Cymru')
+    end
+  end
 end
