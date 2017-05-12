@@ -49,7 +49,6 @@ module Parliament
         args[:prepend_rejected] ? rejected.concat(list) : list.concat(rejected)
       end
 
-
       # Sort an Array of Objects in descending order. Largely, this implementation runs Parliament::NTriple::Utils.sort_by and
       # calls reverse! on the result.
       #
@@ -95,8 +94,32 @@ module Parliament
         { prepend_rejected: true }
       end
 
+      # Sort an array of objects in ascending or descending order.
+      #
+      # @example Sorting a list objects by count (descending) and name (ascending)
+      #   response = parliament.houses('123').parties.current.get.filter('http://id.ukpds.org/schema/Party')
+      #
+      #   args = {
+      #     list: response.nodes,
+      #     parameters: { count: :desc, name: :asc }
+      #   }
+      #
+      #   sorted_list = Parliament::NTriple::Util.multi_direction_sort(args)
+      #
+      #   sorted_list.each{ |party| p "#{party.name} - #{party.count}" }
+      #   # http://id.ukpds.org/1837 - Conservative - 220
+      #   # http://id.ukpds.org/3824 - Labour - 220
+      #   # http://id.ukpds.org/7283 - Green Party - 1
+      #   # http://id.ukpds.org/2837 - Independent Liberal Democrat - 1
+      #   # http://id.ukpds.org/3726 - Plaid Cymru - 1
+      #
+      # @param [Hash] args a hash of arguments.
+      # @option args [Array<Object>] :list the 'list' which we are sorting.
+      # @option args [Hash<Symbol>,<Symbol>] :parameters a hash of parameters to sort by as keys and the sort direction as values.
+      # @option args [Boolean] :prepend_rejected (true) should objects that do not respond to our parameters be prepended?
+      #
+      # @return [Array<Object>] a sorted array of objects using the args passed in.
       def self.multi_direction_sort(args)
-        directions_hash = { asc: 1, desc: -1 }
         rejected = []
         args = sort_defaults.merge(args)
 
@@ -104,13 +127,8 @@ module Parliament
         sort_directions = args[:parameters]
 
         list, rejected = prune_list(list, rejected, sort_directions.keys)
-        list.sort! do |obj1, obj2|
-          sort_values = sort_directions.map do |method_name, direction|
-            directions_hash[direction] * (obj1.send(method_name) <=> obj2.send(method_name))
-          end
 
-          sort_values.find{ |value| value != 0 } || 0
-        end
+        list = multi_sort_list(list, sort_directions)
 
         # Any rejected (nil) values will be added to the start of the result unless specified otherwise
         args[:prepend_rejected] ? rejected.concat(list) : list.concat(rejected)
@@ -144,7 +162,7 @@ module Parliament
       # @!visibility private
       #
       # @param [Array<Object>] list the 'list' of objects we are pruning from.
-      # @param [Array<Symbol>] parameters an array of parameters we are checking.
+      # @param [Array<Symbol>] parameters a hash of parameters to sort by as keys and the sort direction as values.
       #
       # @return [Array<Object>] our sorted list.
       private_class_method def self.sort_list(list, parameters)
@@ -152,6 +170,29 @@ module Parliament
           parameters.map do |param|
             object.send(param).is_a?(String) ? I18n.transliterate(object.send(param)).downcase : object.send(param)
           end
+        end
+      end
+
+      # @!method self.multi_sort_list(list, sort_directions)
+      # Sort a given list ofobjects by a list of parameters and their sort directions.
+      #
+      # @private
+      # @!scope class
+      # @!visibility private
+      #
+      # @param [Array<Object>] list the 'list' of objects we are pruning from.
+      # @param [Hash<Symbol>,<Symbol>] parameters an array of parameters we are checking.
+      #
+      # @return [Array<Object>] our sorted list.
+      private_class_method def self.multi_sort_list(list, sort_directions)
+        directions_hash = { asc: 1, desc: -1 }
+
+        list.sort do |obj1, obj2|
+          sort_values = sort_directions.map do |method_name, direction|
+            directions_hash[direction] * (obj1.send(method_name) <=> obj2.send(method_name))
+          end
+
+          sort_values.find { |value| value != 0 } || 0
         end
       end
     end

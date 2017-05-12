@@ -1,0 +1,89 @@
+---
+http_interactions:
+- request:
+    method: get
+    uri: http://localhost:3030/houses/mG2ur5TF/parties/current
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+      - application/n-triples
+      User-Agent:
+      - Ruby
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      X-Frame-Options:
+      - SAMEORIGIN
+      X-Xss-Protection:
+      - 1; mode=block
+      X-Content-Type-Options:
+      - nosniff
+      Content-Type:
+      - application/n-triples; charset=utf-8
+      Etag:
+      - W/"69ef9d6d72a07be158bfe6860a69f79f"
+      Cache-Control:
+      - max-age=0, private, must-revalidate
+      X-Request-Id:
+      - ea5169f0-4cfc-4b6f-ab01-825971a059cd
+      X-Runtime:
+      - '0.383292'
+      Transfer-Encoding:
+      - chunked
+    body:
+      encoding: UTF-8
+      string: |
+        <http://id.ukpds.org/mG2ur5TF> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://id.ukpds.org/schema/House> .
+        <http://id.ukpds.org/mG2ur5TF> <http://id.ukpds.org/schema/houseName> "House of Lords" .
+        <http://id.ukpds.org/tNz2iSV7> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://id.ukpds.org/schema/Party> .
+        <http://id.ukpds.org/tNz2iSV7> <http://id.ukpds.org/schema/partyName> "Democratic Unionist Party" .
+        <http://id.ukpds.org/tNz2iSV7> <http://id.ukpds.org/schema/count> "4"^^<http://www.w3.org/2001/XMLSchema#integer> .
+        <http://id.ukpds.org/mRIX9u3h> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://id.ukpds.org/schema/Party> .
+        <http://id.ukpds.org/mRIX9u3h> <http://id.ukpds.org/schema/partyName> "Crossbench" .
+        <http://id.ukpds.org/mRIX9u3h> <http://id.ukpds.org/schema/count> "180"^^<http://www.w3.org/2001/XMLSchema#integer> .
+        <http://id.ukpds.org/lk3RZ8EB> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://id.ukpds.org/schema/Party> .
+        <http://id.ukpds.org/lk3RZ8EB> <http://id.ukpds.org/schema/partyName> "Labour" .
+        <http://id.ukpds.org/lk3RZ8EB> <http://id.ukpds.org/schema/count> "211"^^<http://www.w3.org/2001/XMLSchema#integer> .
+        <http://id.ukpds.org/9KcoLZg0> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://id.ukpds.org/schema/Party> .
+        <http://id.ukpds.org/9KcoLZg0> <http://id.ukpds.org/schema/partyName> "Non-affiliated" .
+        <http://id.ukpds.org/9KcoLZg0> <http://id.ukpds.org/schema/count> "45"^^<http://www.w3.org/2001/XMLSchema#integer> .
+        <http://id.ukpds.org/97i0V4Fd> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://id.ukpds.org/schema/Party> .
+        <http://id.ukpds.org/97i0V4Fd> <http://id.ukpds.org/schema/partyName> "Plaid Cymru" .
+        <http://id.ukpds.org/97i0V4Fd> <http://id.ukpds.org/schema/count> "1"^^<http://www.w3.org/2001/XMLSchema#integer> .
+        <http://id.ukpds.org/bhH4peL7> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://id.ukpds.org/schema/Party> .
+        <http://id.ukpds.org/bhH4peL7> <http://id.ukpds.org/schema/partyName> "Bishops" .
+        <http://id.ukpds.org/bhH4peL7> <http://id.ukpds.org/schema/count> "25"^^<http://www.w3.org/2001/XMLSchema#integer> .
+        <http://id.ukpds.org/ctEDXXsZ> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://id.ukpds.org/schema/Party> .
+        <http://id.ukpds.org/ctEDXXsZ> <http://id.ukpds.org/schema/partyName> "Independent Social Democrat" .
+        <http://id.ukpds.org/ctEDXXsZ> <http://id.ukpds.org/schema/count> "1"^^<http://www.w3.org/2001/XMLSchema#integer> .
+        <http://id.ukpds.org/YuP8Vh7a> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://id.ukpds.org/schema/Party> .
+        <http://id.ukpds.org/YuP8Vh7a> <http://id.ukpds.org/schema/partyName> "Liberal Democrat" .
+        <http://id.ukpds.org/YuP8Vh7a> <http://id.ukpds.org/schema/count> "105"^^<http://www.w3.org/2001/XMLSchema#integer> .
+        <http://id.ukpds.org/v8NxgaBx> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://id.ukpds.org/schema/Party> .
+        <http://id.ukpds.org/v8NxgaBx> <http://id.ukpds.org/schema/partyName> "Green Party" .
+        <http://id.ukpds.org/v8NxgaBx> <http://id.ukpds.org/schema/count> "1"^^<http://www.w3.org/2001/XMLSchema#integer> .
+        <http://id.ukpds.org/j0Dmm3IU> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://id.ukpds.org/schema/Party> .
+        <http://id.ukpds.org/j0Dmm3IU> <http://id.ukpds.org/schema/partyName> "Independent Labour" .
+        <http://id.ukpds.org/j0Dmm3IU> <http://id.ukpds.org/schema/count> "2"^^<http://www.w3.org/2001/XMLSchema#integer> .
+        <http://id.ukpds.org/ozvF6xxA> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://id.ukpds.org/schema/Party> .
+        <http://id.ukpds.org/ozvF6xxA> <http://id.ukpds.org/schema/partyName> "UK Independence Party" .
+        <http://id.ukpds.org/ozvF6xxA> <http://id.ukpds.org/schema/count> "3"^^<http://www.w3.org/2001/XMLSchema#integer> .
+        <http://id.ukpds.org/6THXr8R6> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://id.ukpds.org/schema/Party> .
+        <http://id.ukpds.org/6THXr8R6> <http://id.ukpds.org/schema/partyName> "Conservative" .
+        <http://id.ukpds.org/6THXr8R6> <http://id.ukpds.org/schema/count> "260"^^<http://www.w3.org/2001/XMLSchema#integer> .
+        <http://id.ukpds.org/7hF84ZPx> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://id.ukpds.org/schema/Party> .
+        <http://id.ukpds.org/7hF84ZPx> <http://id.ukpds.org/schema/partyName> "Independent Ulster Unionist" .
+        <http://id.ukpds.org/7hF84ZPx> <http://id.ukpds.org/schema/count> "1"^^<http://www.w3.org/2001/XMLSchema#integer> .
+        <http://id.ukpds.org/tcTxcuuF> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://id.ukpds.org/schema/Party> .
+        <http://id.ukpds.org/tcTxcuuF> <http://id.ukpds.org/schema/partyName> "Ulster Unionist Party" .
+        <http://id.ukpds.org/tcTxcuuF> <http://id.ukpds.org/schema/count> "2"^^<http://www.w3.org/2001/XMLSchema#integer> .
+    http_version: 
+  recorded_at: Thu, 11 May 2017 16:10:56 GMT
+recorded_with: VCR 3.0.3

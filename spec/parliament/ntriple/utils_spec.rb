@@ -203,5 +203,66 @@ describe Parliament::NTriple::Utils, vcr: true do
       expect(sorted_parties[12].name).to eq('Independent Ulster Unionist')
       expect(sorted_parties[13].name).to eq('Plaid Cymru')
     end
+
+    it 'returns a response sorted by member_count (asc) and name (asc)' do
+      response = Parliament::Request::UrlRequest.new(base_url: 'http://localhost:3030',
+                                                     builder: Parliament::Builder::NTripleResponseBuilder,
+                                                     decorators: Parliament::Grom::Decorator).houses('mG2ur5TF').parties.current.get
+      filtered_response = response.filter('http://id.ukpds.org/schema/Party')
+
+      sorted_parties = Parliament::NTriple::Utils.multi_direction_sort({
+                                                                           list: filtered_response.nodes,
+                                                                           parameters: { member_count: :asc, name: :asc },
+                                                                       })
+
+      expect(sorted_parties[0].name).to eq('Green Party')
+      expect(sorted_parties[1].name).to eq('Independent Social Democrat')
+      expect(sorted_parties[2].name).to eq('Independent Ulster Unionist')
+      expect(sorted_parties[3].name).to eq('Plaid Cymru')
+      expect(sorted_parties.last.name).to eq('Conservative')
+    end
+
+    it 'returns a response sorted by member_count (desc) and name (desc)' do
+      response = Parliament::Request::UrlRequest.new(base_url: 'http://localhost:3030',
+                                                     builder: Parliament::Builder::NTripleResponseBuilder,
+                                                     decorators: Parliament::Grom::Decorator).houses('mG2ur5TF').parties.current.get
+      filtered_response = response.filter('http://id.ukpds.org/schema/Party')
+
+      sorted_parties = Parliament::NTriple::Utils.multi_direction_sort({
+                                                                           list: filtered_response.nodes,
+                                                                           parameters: { member_count: :desc, name: :desc },
+                                                                       })
+
+      expect(sorted_parties.first.name).to eq('Conservative')
+      expect(sorted_parties[13].name).to eq('Green Party')
+      expect(sorted_parties[12].name).to eq('Independent Social Democrat')
+      expect(sorted_parties[11].name).to eq('Independent Ulster Unionist')
+      expect(sorted_parties[10].name).to eq('Plaid Cymru')
+    end
+
+    it 'returns a response sorted by date of birth (desc), given_name (asc) and family_name (desc)' do
+      response = Parliament::Request::UrlRequest.new(base_url: 'http://localhost:3030',
+                                                     builder: Parliament::Builder::NTripleResponseBuilder,
+                                                     decorators: Parliament::Grom::Decorator).people.members.current('a').get
+      filtered_response = response.filter('http://id.ukpds.org/schema/Person')
+
+      sorted_people = Parliament::NTriple::Utils.multi_direction_sort({
+                                                                           list: filtered_response.nodes,
+                                                                           parameters: { date_of_birth: :asc,
+                                                                                         given_name: :asc,
+                                                                                         family_name: :desc
+                                                                           },
+                                                                       })
+
+      expect(sorted_people.first.given_name).to eq('Katherine')
+      expect(sorted_people[1].given_name).to eq('Rebecca')
+      expect(sorted_people[2].given_name).to eq('Anne')
+      expect(sorted_people[3].given_name).to eq('Emma')
+      expect(sorted_people[3].family_name).to eq('Turquoise')
+      expect(sorted_people[4].given_name).to eq('Emma')
+      expect(sorted_people[4].family_name).to eq('Silver')
+      expect(sorted_people[5].given_name).to eq('Emma')
+      expect(sorted_people[5].family_name).to eq('Arwen')
+    end
   end
 end
