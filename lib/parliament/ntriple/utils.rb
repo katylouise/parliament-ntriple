@@ -174,7 +174,7 @@ module Parliament
       end
 
       # @!method self.multi_sort_list(list, sort_directions)
-      # Sort a given list ofobjects by a list of parameters and their sort directions.
+      # Sort a given list of objects by a list of parameters and their sort directions.
       #
       # @private
       # @!scope class

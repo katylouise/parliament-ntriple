@@ -264,5 +264,33 @@ describe Parliament::NTriple::Utils, vcr: true do
       expect(sorted_people[5].given_name).to eq('Emma')
       expect(sorted_people[5].family_name).to eq('Arwen')
     end
+
+    it 'sorts with a large number of filters' do
+      response = Parliament::Request::UrlRequest.new(base_url: 'http://localhost:3030',
+                                                     builder: Parliament::Builder::NTripleResponseBuilder,
+                                                     decorators: Parliament::Grom::Decorator).people.members.current('a').get
+      filtered_response = response.filter('http://id.ukpds.org/schema/Person')
+
+      sorted_people = Parliament::NTriple::Utils.multi_direction_sort({
+                                                                          list: filtered_response.nodes,
+                                                                          parameters: { date_of_birth: :asc,
+                                                                                        name1: :asc,
+                                                                                        name2: :desc,
+                                                                                        name3: :asc,
+                                                                                        name4: :desc
+                                                                          },
+                                                                      })
+
+      expect(sorted_people[0].name1).to eq('E')
+      expect(sorted_people[1].name1).to eq('S')
+      expect(sorted_people[2].name1).to eq('K')
+      expect(sorted_people[3].name1).to eq('R')
+      expect(sorted_people[4].name2).to eq('F')
+      expect(sorted_people[5].name2).to eq('E')
+      expect(sorted_people[6].name3).to eq('A')
+      expect(sorted_people[7].name3).to eq('B')
+      expect(sorted_people[8].name4).to eq('O')
+      expect(sorted_people[9].name4).to eq('M')
+    end
   end
 end
