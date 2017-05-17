@@ -1,0 +1,69 @@
+---
+http_interactions:
+- request:
+    method: get
+    uri: http://localhost:3030/people/members/current/a
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+      - application/n-triples
+      User-Agent:
+      - Ruby
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      X-Frame-Options:
+      - SAMEORIGIN
+      X-Xss-Protection:
+      - 1; mode=block
+      X-Content-Type-Options:
+      - nosniff
+      Content-Type:
+      - application/n-triples; charset=utf-8
+      Etag:
+      - W/"fac728b25075517aaee30328a20fbdab"
+      Cache-Control:
+      - max-age=0, private, must-revalidate
+      X-Request-Id:
+      - b994fa46-1fed-4965-aab9-6c5d91658c86
+      X-Runtime:
+      - '1.931983'
+      Transfer-Encoding:
+      - chunked
+    body:
+      encoding: UTF-8
+      string: |
+        <http://id.ukpds.org/xP2kB45W> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://id.ukpds.org/schema/Person> .
+        <http://id.ukpds.org/xP2kB45W> <http://id.ukpds.org/schema/personGivenName> "Katherine" .
+        <http://id.ukpds.org/xP2kB45W> <http://id.ukpds.org/schema/personFamilyName> "Jenkins" .
+        <http://id.ukpds.org/xP2kB45W> <http://id.ukpds.org/schema/personDateOfBirth> "1992-06-28"^^<http://www.w3.org/2001/XMLSchema#date> .
+        <http://id.ukpds.org/NdJeAmm0> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://id.ukpds.org/schema/Person> .
+        <http://id.ukpds.org/NdJeAmm0> <http://id.ukpds.org/schema/personGivenName> "Anne" .
+        <http://id.ukpds.org/NdJeAmm0> <http://id.ukpds.org/schema/personFamilyName> "Adams" .
+        <http://id.ukpds.org/NdJeAmm0> <http://id.ukpds.org/schema/personDateOfBirth> "2010-06-28"^^<http://www.w3.org/2001/XMLSchema#date> .
+        <http://id.ukpds.org/KaUbRxCT> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://id.ukpds.org/schema/Person> .
+        <http://id.ukpds.org/KaUbRxCT> <http://id.ukpds.org/schema/personGivenName> "Emma" .
+        <http://id.ukpds.org/KaUbRxCT> <http://id.ukpds.org/schema/personFamilyName> "Silver" .
+        <http://id.ukpds.org/KaUbRxCT> <http://id.ukpds.org/schema/personDateOfBirth> "2010-06-28"^^<http://www.w3.org/2001/XMLSchema#date> .
+        <http://id.ukpds.org/1234567a> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://id.ukpds.org/schema/Person> .
+        <http://id.ukpds.org/1234567a> <http://id.ukpds.org/schema/personGivenName> "Rebecca" .
+        <http://id.ukpds.org/1234567a> <http://id.ukpds.org/schema/personFamilyName> "Appleyard" .
+        <http://id.ukpds.org/1234567a> <http://id.ukpds.org/schema/personDateOfBirth> "1995-06-28"^^<http://www.w3.org/2001/XMLSchema#date> .
+        <http://id.ukpds.org/1234567b> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://id.ukpds.org/schema/Person> .
+        <http://id.ukpds.org/1234567b> <http://id.ukpds.org/schema/personGivenName> "Emma" .
+        <http://id.ukpds.org/1234567b> <http://id.ukpds.org/schema/personFamilyName> "Arwen" .
+        <http://id.ukpds.org/1234567b> <http://id.ukpds.org/schema/personDateOfBirth> "2010-06-28"^^<http://www.w3.org/2001/XMLSchema#date> .
+        <http://id.ukpds.org/1234567c> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://id.ukpds.org/schema/Person> .
+        <http://id.ukpds.org/1234567c> <http://id.ukpds.org/schema/personGivenName> "Emma" .
+        <http://id.ukpds.org/1234567c> <http://id.ukpds.org/schema/personFamilyName> "Turquoise" .
+        <http://id.ukpds.org/1234567c> <http://id.ukpds.org/schema/personDateOfBirth> "2010-06-28"^^<http://www.w3.org/2001/XMLSchema#date> .
+    http_version: 
+  recorded_at: Thu, 11 May 2017 16:29:44 GMT
+recorded_with: VCR 3.0.3

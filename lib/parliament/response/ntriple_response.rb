@@ -26,7 +26,7 @@ module Parliament
       #
       # Note: this method assumes all of your nodes include a #type attribute or are blank nodes.
       #
-      # @since 0.2.0
+      # @since 0.1.0
       #
       # @example Filtering for a single type
       #    node_1 = Grom::Node.new
@@ -94,7 +94,7 @@ module Parliament
       #
       # @see Parliament::Utils.sort_by
       #
-      # @since 0.5.0
+      # @since 0.1.0
       #
       # @param [Array<Symbol>] parameters Attributes to sort on - left to right.
       # @return [Array<Grom::Node>] A sorted array of nodes.
@@ -107,11 +107,28 @@ module Parliament
         )
       end
 
+      # Sort the Parliament::Response nodes in ascending or descending order by a set of attributes on each node.
+      #
+      # @see Parliament::Utils.multi_direction_sort
+      #
+      # @since 0.1.2
+      #
+      # @param [Hash<Symbol,Symbol>] parameters Attributes to sort on (left to right) - and their direction of sort(asc or desc).
+      # @return [Array<Grom::Node>] A sorted array of nodes.
+      def multi_direction_sort(parameters)
+        Parliament::NTriple::Utils.multi_direction_sort(
+          {
+            list:       @nodes,
+            parameters: parameters
+          }
+        )
+      end
+
       # Sort the Parliament::Response nodes in descending order by a set of attributes on each node.
       #
       # @see Parliament::Utils.reverse_sort_by
       #
-      # @since 0.5.0
+      # @since 0.1.0
       #
       # @param [Array<Symbol>] parameters Attributes to sort on - left to right.
       # @return [Array<Grom::Node>] A sorted array of nodes.
