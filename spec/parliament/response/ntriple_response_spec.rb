@@ -155,10 +155,10 @@ describe Parliament::Response::NTripleResponse, vcr: true do
 
     it 'sorts the nodes in a Parliament::Response object by the given parameter' do
       filtered_response = @response.filter('http://id.ukpds.org/schema/SeatIncumbency')
-      sorted_response = filtered_response.reverse_sort_by(:incumbencyStartDate)
+      sorted_response = filtered_response.reverse_sort_by(:parliamentaryIncumbencyStartDate)
 
-      expect(sorted_response[0].incumbencyStartDate).to eq('2015-05-07')
-      expect(sorted_response[1].incumbencyStartDate).to eq('2010-05-06')
+      expect(sorted_response[0].parliamentaryIncumbencyStartDate).to eq('2015-05-07')
+      expect(sorted_response[1].parliamentaryIncumbencyStartDate).to eq('2010-05-06')
     end
   end
 

@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 require_relative '../../spec_helper'
 
 describe Parliament::NTriple::Utils, vcr: true do
@@ -22,11 +23,11 @@ describe Parliament::NTriple::Utils, vcr: true do
 
         sorted_incumbencies = Parliament::NTriple::Utils.sort_by({
                                                             list: filtered_response.nodes,
-                                                            parameters: [:incumbencyStartDate]
+                                                            parameters: [:parliamentaryIncumbencyStartDate]
                                                         })
 
-        expect(sorted_incumbencies.first.incumbencyStartDate).to eq('1987-06-11')
-        expect(sorted_incumbencies[1].incumbencyStartDate).to eq('1992-04-09')
+        expect(sorted_incumbencies.first.parliamentaryIncumbencyStartDate).to eq('1987-06-11')
+        expect(sorted_incumbencies[1].parliamentaryIncumbencyStartDate).to eq('1992-04-09')
       end
     end
 
@@ -55,7 +56,7 @@ describe Parliament::NTriple::Utils, vcr: true do
                                                             list: person.incumbencies,
                                                             parameters: [:end_date],
                                                             prepend_rejected: false
-                                                        })
+                                                                 })
 
         expect(sorted_incumbencies.last.end_date).to eq(nil)
         expect(sorted_incumbencies[sorted_incumbencies.length - 2].end_date).to eq(DateTime.new(2015, 3, 30))
@@ -153,7 +154,7 @@ describe Parliament::NTriple::Utils, vcr: true do
   end
 
   describe '#reverse_sort_by' do
-    it 'returns a response sorted by incumbencyStartDate' do
+    it 'returns a response sorted by parliamentaryIncumbencyStartDate' do
       response = Parliament::Request::UrlRequest.new(base_url: 'http://localhost:3030',
                                                      builder: Parliament::Builder::NTripleResponseBuilder,
                                                      decorators: Parliament::Grom::Decorator).people('2c196540-13f3-4c07-8714-b356912beceb').get
