@@ -79,9 +79,16 @@ module Parliament
 
         unless types.empty?
           @nodes.each do |node|
-            type_index = node.blank? ? types.index(::Grom::Node::BLANK) : types.index(node.type)
+            node_types = node.blank? ? Array(::Grom::Node::BLANK) : Array(node.type)
 
-            filtered_objects[type_index] << node unless type_index.nil?
+            indexes = node_types.reduce([]) do |memo, type|
+              index = types.index(type)
+              memo << index if index
+
+              memo
+            end
+
+            indexes.each { |index| filtered_objects[index] << node }
           end
         end
 

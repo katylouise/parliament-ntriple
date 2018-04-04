@@ -130,6 +130,19 @@ describe Parliament::Response::NTripleResponse, vcr: true do
         expect(node.type).to eq('http://id.ukpds.org/schema/Person')
       end
     end
+
+    it 'filters nodes that appear in multiple types' do
+      filtered_response = @response.filter('http://id.ukpds.org/schema/Group', 'http://id.ukpds.org/schema/FormalBody')
+      expect(filtered_response.size).to eq(2)
+
+      filtered_response.each do |filtered_nodes|
+        expect(filtered_nodes.size).to eq(2)
+
+        filtered_nodes.each do |node|
+          expect(node.type).to eq(%w(http://id.ukpds.org/schema/Group http://id.ukpds.org/schema/FormalBody))
+        end
+      end
+    end
   end
 
   describe '#sort_by' do

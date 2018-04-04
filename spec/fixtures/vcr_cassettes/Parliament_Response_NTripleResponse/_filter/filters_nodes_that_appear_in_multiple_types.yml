@@ -1,0 +1,49 @@
+---
+http_interactions:
+- request:
+    method: get
+    uri: http://localhost:3030/people/members/current
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+      - application/n-triples
+      User-Agent:
+      - Ruby
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      X-Frame-Options:
+      - SAMEORIGIN
+      X-Xss-Protection:
+      - 1; mode=block
+      X-Content-Type-Options:
+      - nosniff
+      Content-Type:
+      - application/n-triples; charset=utf-8
+      Etag:
+      - W/"05e7a0e4523d4b7fd2d5c532758dd189"
+      Cache-Control:
+      - max-age=0, private, must-revalidate
+      X-Request-Id:
+      - 0cda5720-74c9-4085-8940-0ff0eca32bb5
+      X-Runtime:
+      - '2.841473'
+      Transfer-Encoding:
+      - chunked
+    body:
+      encoding: UTF-8
+      string: |
+        <http://id.ukpds.org/b25208a7-2c4b-4f7d-b42f-635fb3f8f13f> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://id.ukpds.org/schema/Group> .
+        <http://id.ukpds.org/b25208a7-2c4b-4f7d-b42f-635fb3f8f13f> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://id.ukpds.org/schema/FormalBody> .
+        <http://id.ukpds.org/b25208a7-2c4b-4f7d-b42f-635fb3f8f13a> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://id.ukpds.org/schema/Group> .
+        <http://id.ukpds.org/b25208a7-2c4b-4f7d-b42f-635fb3f8f13a> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://id.ukpds.org/schema/FormalBody> .
+    http_version:
+  recorded_at: Wed, 19 Apr 2017 11:51:16 GMT
+recorded_with: VCR 3.0.3
