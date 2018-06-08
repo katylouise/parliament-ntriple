@@ -22,10 +22,32 @@ module Parliament
       #
       # @return [Parliament::Response::NTripleResponse] a Parliament::Response::NTripleResponse containing decorated Grom::Node objects.
       def build
-        objects = ::Grom::Reader.new(@response.body).objects
+        encoded_body = encode_to_utf8(@response.body)
+        encoded_body_without_bom = remove_byte_order_mark(encoded_body)
+
+        objects = ::Grom::Reader.new(encoded_body_without_bom).objects
         objects.map! { |object| @decorators.decorate(object) } unless @decorators.nil?
 
         Parliament::Response::NTripleResponse.new(objects)
+      end
+
+      private
+
+      # Encodes HTTP response body to UTF-8
+      #
+      # @param [String] HTTP response string containing n-triple data.
+      # @return [String] a UTF-8 response body string.
+      def encode_to_utf8(response_body)
+        response_body.force_encoding('UTF-8')
+      end
+
+      # Removes byte order mark (BOM) from UTF-8 response body string
+      #
+      # @param [String] UTF-8 HTTP response string containing BOM and n-triple data.
+      # @return [String] a UTF-8 response body string without BOM.
+      def remove_byte_order_mark(response_body)
+        response_body.gsub!("\xEF\xBB\xBF".force_encoding('UTF-8'), '')
+        response_body
       end
     end
   end
