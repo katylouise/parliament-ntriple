@@ -25,8 +25,7 @@ module Parliament
         encoded_body = encode_to_utf8(@response.body)
         encoded_body_without_bom = remove_byte_order_mark(encoded_body)
 
-        objects = ::Grom::Reader.new(encoded_body_without_bom).objects
-        objects.map! { |object| @decorators.decorate(object) } unless @decorators.nil?
+        objects = ::Grom::Reader.new(encoded_body_without_bom, @decorators)&.objects
 
         Parliament::Response::NTripleResponse.new(objects)
       end
