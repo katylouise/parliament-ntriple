@@ -6,8 +6,17 @@ describe Parliament::Builder::NTripleResponseBuilder, vcr: true do
   let(:ntriple_response_body) { "\xEF\xBB\xBF<https://id.parliament.uk/d3Sii84i> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <https://id.parliament.uk/schema/ConstituencyGroup> .\r\n" }
 
   subject { Parliament::Builder::NTripleResponseBuilder.new(response: parliament_response.response) }
+  subject(:builder_with_decorators) { Parliament::Builder::NTripleResponseBuilder.new(response: parliament_response.response, decorators: Parliament::Grom::Decorator) }
 
-  context 'build' do
+  describe '#initialize' do
+    context 'with decorators' do
+      it 'stores them into @decorators' do
+        expect(builder_with_decorators.instance_variable_get(:@decorators)).to eq(Parliament::Grom::Decorator)
+      end
+    end
+  end
+
+  describe '#build' do
     before(:each) do
       @ntriple_response = subject.build
     end
@@ -16,13 +25,29 @@ describe Parliament::Builder::NTripleResponseBuilder, vcr: true do
       expect(@ntriple_response).to be_a(Parliament::Response::NTripleResponse)
     end
 
-    it 'returns 9 objects' do
-      expect(@ntriple_response.size).to eq(9)
+    it 'returns 18 objects' do
+      expect(@ntriple_response.size).to eq(18)
     end
 
     it 'returns an array of Grom::Node objects' do
       @ntriple_response.each do |object|
         expect(object).to be_a(Grom::Node)
+      end
+    end
+
+    context 'with decorators' do
+      it 'passes them to Grom::Reader' do
+        expect(::Grom::Reader).to receive(:new).with(parliament_response.response.body, Parliament::Grom::Decorator)
+
+        builder_with_decorators.build
+      end
+    end
+
+    context 'without decorators' do
+      it 'doesn\'t pass any to Grom::Reader' do
+        expect(::Grom::Reader).to receive(:new).with(parliament_response.response.body, nil)
+
+        Parliament::Builder::NTripleResponseBuilder.new(response: parliament_response.response).build
       end
     end
   end
