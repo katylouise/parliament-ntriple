@@ -8,18 +8,19 @@ module Parliament
     #
     # @since 0.1.0
     #
-    # @see Parliament::Response::BaseReponse#initialize
+    # @see Parliament::Response::BaseResponse#initialize
     #
     # @attr_reader [Array<Grom::Node>] nodes Graph nodes.
     class NTripleResponse < Parliament::Response::BaseResponse
       include Enumerable
       extend Forwardable
-      attr_reader :nodes
+      attr_reader :nodes, :labels
       def_delegators :@nodes, :size, :each, :select, :map, :select!, :map!, :count, :length, :[], :empty?
 
-      # @param [Array<Grom::Node>] nodes An array of nodes the response should wrap
-      def initialize(nodes)
-        @nodes = nodes
+      # @param [Grom::Response] An instance of a Grom::Response object containing Grom::Node objects and a Grom::Labels object.
+      def initialize(response)
+        @nodes = response&.objects
+        @labels = response&.labels
       end
 
       # Given our array of Grom::Nodes, filter them into arrays of 'types' of nodes.
@@ -73,7 +74,7 @@ module Parliament
       #    response.filter(Grom::Node::BLANK) #=> [#<Grom::Node>]
       #
       # @param [Array<String>] types An array of type strings that you are looking for.
-      # @return [Array<Grom::Node> || Array<*Array<Grom::Node>>] If you pass one type, this returns an Array of Grom::Node objects. If you pass multiple, it returns an array, of arrays of Grom::Node objects.
+      # @return [Array<Grom::Node> || Array<*Array<Grom::Node>>] If you pass one type, this returns an Array of Grom::Node object. If you pass multiple, it returns an array, of arrays of Grom::Node objects.
       def filter(*types)
         filtered_objects = Array.new(types.size) { [] }
 
@@ -154,7 +155,7 @@ module Parliament
         result = []
 
         filtered_objects.each do |objects|
-          result << Parliament::Response::NTripleResponse.new(objects)
+          result << Parliament::Response::NTripleResponse.new(::Grom::Response.new(objects))
         end
         result
       end

@@ -10,6 +10,7 @@ $LOAD_PATH.unshift File.expand_path('../../lib', __FILE__)
 require 'parliament'
 require 'parliament/ntriple'
 require 'parliament/grom/decorator'
+require 'grom/response'
 
 require 'webmock/rspec'
 require 'vcr'

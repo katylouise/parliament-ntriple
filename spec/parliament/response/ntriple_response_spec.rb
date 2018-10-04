@@ -2,7 +2,7 @@ require_relative '../.../../../spec_helper'
 
 describe Parliament::Response::NTripleResponse, vcr: true do
   let(:nodes) { [] }
-  subject { Parliament::Response::NTripleResponse.new(nodes) }
+  subject { Parliament::Response::NTripleResponse.new(::Grom::Response.new(nodes)) }
 
   describe '#initialize' do
     it 'sets an instance variable for the nodes' do
