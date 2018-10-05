@@ -20,7 +20,7 @@ module Parliament
 
       # Builds a Parliament::Response::NTripleResponse from the n-triple data.
       #
-      # @return [Parliament::Response::NTripleResponse] a Parliament::Response::NTripleResponse containing decorated Grom::Node objects.
+      # @return [Parliament::Response::NTripleResponse] a Parliament::Response::NTripleResponse containing a Grom::Response object.
       def build
         encoded_body = encode_to_utf8(@response.body)
         encoded_body_without_bom = remove_byte_order_mark(encoded_body)
