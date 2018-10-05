@@ -41,7 +41,7 @@ module Parliament
       #    nodes = [node_1, node_2, node_3, node_4]
       #
       #    response = Parliament::Response::NTriple.new(nodes)
-      #    response.filter('type_2') #=> [#<Grom::Node @type='type_2'>]
+      #    response.filter('type_2') #=> [#<Parliament::Response::NTriple @nodes = [#<Grom::Node @type='type_2'>]>]
       #
       # @example Filtering for multiple types
       #    node_1 = Grom::Node.new
@@ -55,12 +55,12 @@ module Parliament
       #    nodes = [node_1, node_2, node_3, node_4]
       #
       #    response = Parliament::Response::NTripleResponse.new(nodes)
-      #    response.filter('type_2', 'type_1') #=> [[#<Grom::Node @type='type_2'>], [#<Grom::Node @type='type_1'>, #<Grom::Node @type='type_1'>]]
+      #    response.filter('type_2', 'type_1') #=> [#<Parliament::Response::NTriple @nodes = [#<Grom::Node @type='type_2'>], [#<Grom::Node @type='type_1'>, #<Grom::Node @type='type_1'>]>]
       #
       #    # Also consider
       #    type_2, type_1 = response.filter('type_2', 'type_1')
-      #    type_2 #=> [#<Grom::Node @type='type_2'>]
-      #    type_1 #=> [#<Grom::Node @type='type_1'>, #<Grom::Node @type='type_1'>]
+      #    type_2 #=> [#<Parliament::Response::NTriple @nodes = [#<Grom::Node @type='type_2'>]>]
+      #    type_1 #=> [#<Parliament::Response::NTriple @nodes = [#<Grom::Node @type='type_1'>, #<Grom::Node @type='type_1'>]>]
       #
       # @example Filtering blank nodes
       #    node_1 = Grom::Node.new
@@ -71,10 +71,10 @@ module Parliament
       #    nodes = [node_1, node_2, node_3]
       #
       #    response = Parliament::Response::NTripleResponse.new(nodes)
-      #    response.filter(Grom::Node::BLANK) #=> [#<Grom::Node>]
+      #    response.filter(Grom::Node::BLANK) #=> [#<Parliament::Response::NTriple @nodes = [#<Grom::Node>]>]
       #
       # @param [Array<String>] types An array of type strings that you are looking for.
-      # @return [Array<Grom::Node> || Array<*Array<Grom::Node>>] If you pass one type, this returns an Array of Grom::Node object. If you pass multiple, it returns an array, of arrays of Grom::Node objects.
+      # @return [Parliament::Response || Array<Parliament::Response>]
       def filter(*types)
         filtered_objects = Array.new(types.size) { [] }
 
