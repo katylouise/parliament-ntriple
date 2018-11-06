@@ -32,6 +32,7 @@ module Parliament
       # @param [Hash] args a hash of arguments.
       # @option args [Array<Object>] :list the 'list' which we are sorting.
       # @option args [Array<Symbol>] :parameters an array of parameters we are sorting by.
+      # @option args [Proc] :block a block used to sort.
       # @option args [Boolean] :prepend_rejected (true) should objects that do not respond to our parameters be prepended?
       #
       # @return [Array<Object>] a sorted array of objects using the args passed in.
@@ -40,10 +41,11 @@ module Parliament
         args = sort_defaults.merge(args)
         list = args[:list].dup
         parameters = args[:parameters]
+        block = args[:block]
 
-        list, rejected = prune_list(list, rejected, parameters)
+        list, rejected = prune_list(list, rejected, parameters, block)
 
-        list = sort_list(list, parameters)
+        list = sort_list(list, parameters, block)
 
         # Any rejected (nil) values will be added to the start of the result unless specified otherwise
         args[:prepend_rejected] ? rejected.concat(list) : list.concat(rejected)
@@ -77,6 +79,7 @@ module Parliament
       # @param [Hash] args a hash of arguments.
       # @option args [Array<Object>] :list the 'list' which we are sorting.
       # @option args [Array<Symbol>] :parameters an array of parameters we are sorting by.
+      # @option args [Proc] :block a block used to sort.
       # @option args [Boolean] :prepend_rejected (true) should objects that do not respond to our parameters be prepended?
       #
       # @return [Array<Object>] a sorted array of objects using the args passed in.
@@ -126,7 +129,7 @@ module Parliament
         list = args[:list].dup
         sort_directions = args[:parameters]
 
-        list, rejected = prune_list(list, rejected, sort_directions.keys)
+        list, rejected = prune_list(list, rejected, sort_directions.keys, nil)
 
         list = multi_sort_list(list, sort_directions)
 
@@ -144,12 +147,23 @@ module Parliament
       # @param [Array<Object>] list the 'list' of objects we are pruning from.
       # @param [Array<Object>] rejected the objects we have pruned from list.
       # @param [Array<Symbol>] parameters an array of parameters we are checking.
+      # @param [Proc] block a block used to cjecl
       #
       # @return [Array<Array<Object>, Array<Object>>] an array containing first, the pruned list and secondly, the rejected list.
-      private_class_method def self.prune_list(list, rejected, parameters)
-        list.delete_if do |object|
-          rejected << object unless parameters.all? { |param| !object.send(param).nil? if object.respond_to?(param) }
+      private_class_method def self.prune_list(list, rejected, parameters, block)
+        if parameters
+          rejection_block = proc do |object|
+            rejected << object unless parameters.all? { |param| !object.send(param).nil? if object.respond_to?(param) }
+          end
         end
+
+        if block
+          rejection_block = proc do |object|
+            rejected << object if block.call(object).nil?
+          end
+        end
+
+        list.delete_if { |object| rejection_block.call(object) } if rejection_block
 
         [list, rejected]
       end
@@ -163,14 +177,23 @@ module Parliament
       #
       # @param [Array<Object>] list the 'list' of objects we are pruning from.
       # @param [Array<Symbol>] parameters a hash of parameters to sort by as keys and the sort direction as values.
+      # @param [Proc] block a block used to sort.
       #
       # @return [Array<Object>] our sorted list.
-      private_class_method def self.sort_list(list, parameters)
-        list.sort_by! do |object|
-          parameters.map do |param|
-            object.send(param).is_a?(String) ? I18n.transliterate(object.send(param)).downcase : object.send(param)
+      private_class_method def self.sort_list(list, parameters, block)
+        if parameters
+          sort_block = proc do |object|
+            parameters.map do |param|
+              object.send(param).is_a?(String) ? I18n.transliterate(object.send(param)).downcase : object.send(param)
+            end
           end
         end
+
+        sort_block = block if block
+
+        return list if sort_block.nil?
+
+        list.sort_by! { |object| sort_block.call(object) }
       end
 
       # @!method self.multi_sort_list(list, sort_directions)

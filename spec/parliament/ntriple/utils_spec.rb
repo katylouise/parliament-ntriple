@@ -151,6 +151,35 @@ describe Parliament::NTriple::Utils, vcr: true do
         expect(sorted_people[2].personGivenName).to eq('Sarah')
       end
     end
+
+    context 'sorting with a block' do
+      context 'also passing parameters' do
+        it 'ignores the parameters' do
+          response = Parliament::Request::UrlRequest.new(base_url: 'http://localhost:3030',
+                                                         builder: Parliament::Builder::NTripleResponseBuilder).people.get
+
+          sorted_people = Parliament::NTriple::Utils.sort_by({
+                                                                 list: response.nodes,
+                                                                 parameters: [:personFamilyName],
+                                                                 block: proc { |person| person.personGivenName }
+                                                             })
+
+          expect(sorted_people.first.personGivenName).to eq('Alice')
+        end
+      end
+
+      it 'sorts as expected' do
+        response = Parliament::Request::UrlRequest.new(base_url: 'http://localhost:3030',
+                                                       builder: Parliament::Builder::NTripleResponseBuilder).people.get
+
+        sorted_people = Parliament::NTriple::Utils.sort_by({
+                                                               list: response.nodes,
+                                                               block: proc { |person| person.personFamilyName }
+                                                           })
+
+        expect(sorted_people.first.personGivenName).to eq('Jane')
+      end
+    end
   end
 
   describe '#reverse_sort_by' do
