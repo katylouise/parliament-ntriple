@@ -10,6 +10,7 @@ module Parliament
       #
       # @param [HTTPResponse] response an HTTP response containing n-triple data.
       # @param [Module] decorators the decorator module to provide alias methods to the resulting objects.
+      #
       # @example Using the Grom Decorators module
       #   Parliament::Builder::NTripleResponseBuilder.new(response: <#HTTPResponse>, decorators: Parliament::Grom::Decorator)
       def initialize(response:, decorators: nil)
@@ -32,7 +33,7 @@ module Parliament
 
       private
 
-      # Encodes HTTP response body to UTF-8
+      # Encodes HTTP response body to UTF-8.
       #
       # @param [String] HTTP response string containing n-triple data.
       # @return [String] a UTF-8 response body string.
@@ -40,7 +41,7 @@ module Parliament
         response_body.force_encoding('UTF-8')
       end
 
-      # Removes byte order mark (BOM) from UTF-8 response body string
+      # Removes byte order mark (BOM) from UTF-8 response body string.
       #
       # @param [String] UTF-8 HTTP response string containing BOM and n-triple data.
       # @return [String] a UTF-8 response body string without BOM.

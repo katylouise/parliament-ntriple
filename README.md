@@ -11,9 +11,8 @@
 
 ## Installation
 
-This gem is currently not available on RubyGems. To use it in an application, install it directly from GitHub via your Gemfile
 ```bash
-gem 'parliament-ntriple', git: 'https://github.com/ukparliament/parliament-ntriple.git', branch: 'master'
+gem 'parliament-ntriple'
 ```
 
 ## Usage

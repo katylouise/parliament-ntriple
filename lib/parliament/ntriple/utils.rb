@@ -1,11 +1,11 @@
 module Parliament
   module NTriple
-    # Namespace for helper methods used with parliament-ruby.
+    # Namespace for helper methods.
     #
     # @since 0.6.0
     module Utils
       # Sort an Array of Objects in ascending order. The major difference between this implementation of sort_by and the
-      # standard one is that our implementation includes objects that return nil for our parameter values.
+      # standard one is that our implementation will sort objects that return nil for our parameter values.
       #
       # @see Parliament::NTriple::Utils.reverse_sort_by
       #
