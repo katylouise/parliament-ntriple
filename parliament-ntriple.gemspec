@@ -6,7 +6,7 @@ require 'parliament/ntriple/version'
 Gem::Specification.new do |spec|
   spec.name          = 'parliament-ntriple'
   spec.version       = Parliament::NTriple::VERSION
-  spec.authors       = ['Rebecca Appleyard']
+  spec.authors       = ['Rebecca Appleyard', 'Matt Rayner']
   spec.email         = ['rklappleyard@gmail.com']
 
   spec.summary       = %q{Parliamentary NTriple response builder}

@@ -8,7 +8,7 @@ module Parliament
     #
     # @since 0.1.0
     #
-    # @see Parliament::Response::BaseReponse#initialize
+    # @see Parliament::Response::BaseResponse#initialize
     #
     # @attr_reader [Array<Grom::Node>] nodes Graph nodes.
     class NTripleResponse < Parliament::Response::BaseResponse
@@ -99,7 +99,7 @@ module Parliament
 
       # Sort the Parliament::Response nodes in ascending order by a set of attributes on each node.
       #
-      # @see Parliament::Utils.sort_by
+      # @see Parliament::NTriple::Utils.sort_by
       #
       # @since 0.1.0
       #
@@ -116,7 +116,7 @@ module Parliament
 
       # Sort the Parliament::Response nodes in ascending or descending order by a set of attributes on each node.
       #
-      # @see Parliament::Utils.multi_direction_sort
+      # @see Parliament::NTriple::Utils.multi_direction_sort
       #
       # @since 0.1.2
       #
@@ -133,7 +133,7 @@ module Parliament
 
       # Sort the Parliament::Response nodes in descending order by a set of attributes on each node.
       #
-      # @see Parliament::Utils.reverse_sort_by
+      # @see Parliament::NTriple::Utils.reverse_sort_by
       #
       # @since 0.1.0
       #
